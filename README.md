@@ -1,0 +1,2 @@
+This repository explores the design and implementation of an event-driven distributed order processing system.
+The goal of this project is to understand how real-world backend systems handle asynchronous workflows, failure isolation, scalability, and data consistency using technologies like Kafka, RabbitMQ, Redis, and GraphQL.

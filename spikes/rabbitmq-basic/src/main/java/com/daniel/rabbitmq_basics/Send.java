@@ -19,6 +19,11 @@ public class Send {
             String message = "Hello world!";
 
             channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+            for(int i = 1; i <=2; i++) {
+                String new_msg = message + Integer.toString(i);
+                channel.basicPublish("", QUEUE_NAME, null, new_msg.getBytes());
+
+            }
             System.out.println("Sent: "+message);
         }
     }

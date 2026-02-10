@@ -5,7 +5,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
-public class Recv {
+public class Recv_crash {
     private static final String QUEUE_NAME = "hello";
 
     public static void main(String[] argv) throws Exception {
@@ -23,13 +23,17 @@ public class Recv {
             String message = new String(delivery.getBody(), "UTF-8");
 
             System.out.println("Received msg: " + message);
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-//            }
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
 
-            channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+            System.out.println("Simulating system crash!");
+            System.exit(1);
+
+            // ack never sent, means the message will stay in the queue
+            // channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
         };
 
         channel.basicQos(1);
